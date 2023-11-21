@@ -20,10 +20,10 @@ contract GoalAchievedWithdrawTest is Test {
     function setUp() public {
         TestSetup testSetup = new TestSetup();
 
-        (supporter, campaignOwner, token, crowdfunding, module) = testSetup.setUp();
+        (supporter, campaignOwner, token, crowdfunding, module,) = testSetup.setUp();
     }
 
-    function test_should_not_be_able_to_withdraw_if_goal_achieved() public {
+    function test_should_be_able_to_withdraw_if_goal_achieved() public {
         // Given And I am the owner of a Crowdfunding Campaign Contract with 100 ERC20 deposited
         token.mint(supporter, 100);
         vm.startPrank(supporter);
@@ -34,10 +34,10 @@ contract GoalAchievedWithdrawTest is Test {
 
         // When I withdraw the funds from Crowdfunding Campaign Contract
         vm.prank(campaignOwner);
-        module.withdraw(campaignOwner);
+        module.withdraw(campaignOwner, 100);
 
-        // Then my balance for that token should be 100
-        assertEq(token.balanceOf(campaignOwner), 100);
+        // Then my balance for that token should be 99
+        assertEq(token.balanceOf(campaignOwner), 99);
     }
 
     function test_should_not_be_able_to_withdraw_if_goal_not_achieved() public {
@@ -54,7 +54,7 @@ contract GoalAchievedWithdrawTest is Test {
         // When I withdraw the funds from Crowdfunding Campaign Contract the transaction should be reverted
         vm.startPrank(campaignOwner);
         vm.expectRevert(GoalAchievedModifier.GoalNotAchieved.selector);
-        module.withdraw(campaignOwner);
+        module.withdraw(campaignOwner, 100);
         vm.stopPrank();
 
         // And my balance for that token should be 0

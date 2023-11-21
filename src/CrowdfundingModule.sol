@@ -26,7 +26,9 @@ contract CrowdfundingModule is Module {
         transferOwnership(_owner);
     }
 
-    function withdraw(address receiver) external onlyOwner {
-        exec(crowdfunding, 0, abi.encodeWithSignature("withdraw(address)", receiver), Enum.Operation.Call);
+    function withdraw(address receiver, uint256 amount) external onlyOwner {
+        exec(
+            crowdfunding, 0, abi.encodeWithSignature("withdraw(address,uint256)", receiver, amount), Enum.Operation.Call
+        );
     }
 }

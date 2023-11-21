@@ -7,25 +7,19 @@ import { ERC4626 } from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Crowdfunding is Ownable, ERC4626 {
-    address public campaignOwner;
-
-    constructor(address _campaignOwner, IERC20 _asset, string memory _shareName, string memory _shareSymbol)
+    constructor(IERC20 _asset, string memory _shareName, string memory _shareSymbol)
         Ownable(_msgSender())
         ERC4626(_asset)
         ERC20(_shareName, _shareSymbol)
-    {
-        campaignOwner = _campaignOwner;
-    }
+    { }
 
     function deposit(uint256 _amount) public {
         super.deposit(_amount, _msgSender());
     }
 
-    function withdraw(address receiver) public onlyOwner {
-        uint256 amount = IERC20(super.asset()).balanceOf(address(this));
-
-        IERC20(super.asset()).approve(address(this), amount);
-        IERC20(super.asset()).transferFrom(address(this), receiver, amount);
+    function withdraw(address receiver, uint256 _amount) public onlyOwner {
+        IERC20(super.asset()).approve(address(this), _amount);
+        IERC20(super.asset()).transferFrom(address(this), receiver, _amount);
     }
 
     function withdraw(uint256 assets, address receiver, address owner)
