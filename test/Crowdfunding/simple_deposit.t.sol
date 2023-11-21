@@ -1,22 +1,23 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Test, console2} from "forge-std/Test.sol";
-import {Crowdfunding} from "../src/Crowdfunding.sol";
-import {MockToken} from "../src/mocks/MockToken.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+import { Test, console2 } from "forge-std/Test.sol";
+import { Crowdfunding } from "../../src/Crowdfunding.sol";
+import { MockToken } from "../../src/mocks/MockToken.sol";
+import { TestSetup } from "../../script/TestSetup.s.sol";
 
-contract CrowdfundingTest is Test {
-
+contract SimpleDepositTest is Test {
     address public supporter;
+    address public campaignOwner;
 
     MockToken public token;
     Crowdfunding public crowdfunding;
 
     function setUp() public {
-        supporter = makeAddr("supporter");
+        TestSetup testSetup = new TestSetup();
 
-        token = new MockToken();
-        crowdfunding = new Crowdfunding(token);
+        (supporter, campaignOwner, token, crowdfunding) = testSetup.setUp();
     }
 
     function test_supporter_should_be_able_to_deposit() public {
