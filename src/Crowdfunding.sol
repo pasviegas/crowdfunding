@@ -10,7 +10,7 @@ contract Crowdfunding is Ownable, ERC4626 {
     address public campaignOwner;
 
     constructor(address _campaignOwner, IERC20 _asset, string memory _shareName, string memory _shareSymbol)
-        Ownable(_campaignOwner)
+        Ownable(_msgSender())
         ERC4626(_asset)
         ERC20(_shareName, _shareSymbol)
     {
@@ -21,11 +21,11 @@ contract Crowdfunding is Ownable, ERC4626 {
         super.deposit(_amount, _msgSender());
     }
 
-    function withdraw() public onlyOwner {
+    function withdraw(address receiver) public onlyOwner {
         uint256 amount = IERC20(super.asset()).balanceOf(address(this));
 
         IERC20(super.asset()).approve(address(this), amount);
-        IERC20(super.asset()).transferFrom(address(this), msg.sender, amount);
+        IERC20(super.asset()).transferFrom(address(this), receiver, amount);
     }
 
     function withdraw(uint256 assets, address receiver, address owner)
