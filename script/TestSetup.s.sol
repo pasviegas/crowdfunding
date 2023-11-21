@@ -11,7 +11,7 @@ contract TestSetup is Script {
         address campaignOwner = makeAddr("campaignOwner");
 
         MockToken token = new MockToken();
-        Crowdfunding crowdfunding = new Crowdfunding(campaignOwner, token);
+        Crowdfunding crowdfunding = new Crowdfunding(campaignOwner, token, 'xCamp', 'Campaign Share');
 
         return (supporter, campaignOwner, token, crowdfunding);
     }
