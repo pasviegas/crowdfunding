@@ -32,7 +32,8 @@ contract TestSetup is Script {
         GoalAchievedModifier goalModifier = new GoalAchievedModifier(
             address(crowdfunding),
             address(feeModifier),
-            100, uint64(block.timestamp),
+            100,
+            uint64(block.timestamp),
             uint64(block.timestamp) + cooldown
         );
 
