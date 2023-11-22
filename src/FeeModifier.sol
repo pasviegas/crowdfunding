@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity ^0.8.20;
 
-import { console2 } from "forge-std/Test.sol";
-
 import { Modifier } from "zodiac/core/Modifier.sol";
 import { Enum } from "safe-contracts/common/Enum.sol";
 import { Math } from "@openzeppelin/contracts//utils/math/Math.sol";

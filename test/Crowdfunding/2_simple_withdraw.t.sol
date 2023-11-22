@@ -19,7 +19,7 @@ contract SimpleWithdrawTest is Test {
     function setUp() public {
         TestSetup testSetup = new TestSetup();
 
-        (supporter, campaignOwner, token, crowdfunding, module,) = testSetup.setUp();
+        (supporter, campaignOwner, token, crowdfunding, module,,) = testSetup.setUp(0);
     }
 
     function test_campaign_owner_should_be_able_to_withdraw() public {

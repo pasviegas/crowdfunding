@@ -21,7 +21,7 @@ contract FeeDistributedTest is Test {
     function setUp() public {
         TestSetup testSetup = new TestSetup();
 
-        (supporter, campaignOwner, token, crowdfunding, module,platformOwner) = testSetup.setUp();
+        (supporter, campaignOwner, token, crowdfunding, module, platformOwner,) = testSetup.setUp(0);
     }
 
     function test_should_distribute_fee_to_platform_owner() public {

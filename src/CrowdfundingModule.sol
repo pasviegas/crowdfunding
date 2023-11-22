@@ -31,4 +31,13 @@ contract CrowdfundingModule is Module {
             crowdfunding, 0, abi.encodeWithSignature("withdraw(address,uint256)", receiver, amount), Enum.Operation.Call
         );
     }
+
+    function refund(address receiver, uint256 amount) external {
+        exec(
+            crowdfunding,
+            0,
+            abi.encodeWithSignature("redeem(uint256,address,address)", amount, receiver, receiver),
+            Enum.Operation.Call
+        );
+    }
 }
