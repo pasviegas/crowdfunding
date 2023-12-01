@@ -4,7 +4,6 @@ pragma solidity ^0.8.13;
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { Test, console2 } from "forge-std/Test.sol";
 import { Crowdfunding } from "../../src/Crowdfunding.sol";
-import { CrowdfundingModule } from "../../src/CrowdfundingModule.sol";
 import { MockToken } from "../../src/mocks/MockToken.sol";
 import { TestSetup } from "../../script/TestSetup.s.sol";
 
@@ -14,12 +13,11 @@ contract SimpleWithdrawTest is Test {
 
     MockToken public token;
     Crowdfunding public crowdfunding;
-    CrowdfundingModule public module;
 
     function setUp() public {
         TestSetup testSetup = new TestSetup();
 
-        (supporter, campaignOwner, token, crowdfunding, module) = testSetup.setUp();
+        (supporter, campaignOwner, token, crowdfunding) = testSetup.setUp();
     }
 
     function test_campaign_owner_should_be_able_to_withdraw() public {
@@ -33,7 +31,7 @@ contract SimpleWithdrawTest is Test {
 
         // When I withdraw the funds from Crowdfunding Campaign Contract
         vm.prank(campaignOwner);
-        module.withdraw(campaignOwner);
+        crowdfunding.withdraw(campaignOwner);
 
         // Then my balance for that token should be 100
         assertEq(token.balanceOf(campaignOwner), 100);
@@ -51,7 +49,7 @@ contract SimpleWithdrawTest is Test {
 
         // When I withdraw the funds from Crowdfunding Campaign Contract the transaction should be reverted
         vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, supporter));
-        module.withdraw(supporter);
+        crowdfunding.withdraw(supporter);
         vm.stopPrank();
 
         // And my balance for that token should be 0

@@ -17,7 +17,7 @@ contract SimpleDepositTest is Test {
     function setUp() public {
         TestSetup testSetup = new TestSetup();
 
-        (supporter, campaignOwner, token, crowdfunding,) = testSetup.setUp();
+        (supporter, campaignOwner, token, crowdfunding) = testSetup.setUp();
     }
 
     function test_supporter_should_be_able_to_deposit() public {
