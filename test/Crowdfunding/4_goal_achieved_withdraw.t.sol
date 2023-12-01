@@ -21,7 +21,7 @@ contract GoalAchievedWithdrawTest is Test {
     }
 
     function test_should_not_be_able_to_withdraw_if_goal_achieved() public {
-        // Given And I am the owner of a Crowdfunding Campaign Contract with 100 ERC20 deposited
+        // Given And I am the owner of a Crowdfunding Campaign Contract with 100 ERC20 deposited and the goal has been achieved
         // ...
 
         // When I withdraw the funds from Crowdfunding Campaign Contract
