@@ -20,7 +20,7 @@ contract GoalAchievedWithdrawTest is Test {
         (supporter, campaignOwner, token, crowdfunding) = testSetup.setUp();
     }
 
-    function test_should_not_be_able_to_withdraw_if_goal_achieved() public {
+    function test_should_be_able_to_withdraw_if_goal_achieved() public {
         // Given And I am the owner of a Crowdfunding Campaign Contract with 100 ERC20 deposited and the goal has been achieved
         // ...
 
