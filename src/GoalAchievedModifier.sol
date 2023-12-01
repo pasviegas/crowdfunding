@@ -21,8 +21,8 @@ contract GoalAchievedModifier is Modifier {
 
         (address _avatar, address _target, uint256 _goal) = abi.decode(initParams, (address, address, uint256));
 
-        avatar = _avatar;
-        target = _target;
+        setAvatar(_avatar);
+        setTarget(_target);
         goal = _goal;
 
         setupModules();
